@@ -4,6 +4,8 @@ This code is made for educational purposes as part of my masters thesis in compu
 
 I have named the project "Fermion Mingle", as the code enables calculation of fermionic interactions.
 
+Parts of the code was written in collaboration with Gøran Brekke Svaland.
+
 Currently the code has the following functionality:
 - Gaussian basis sets and integral calculations
 - Restricted Hartree-Fock
