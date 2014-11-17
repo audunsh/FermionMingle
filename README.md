@@ -6,7 +6,7 @@ Currently the code has the following functionality:
 - Gaussian basis sets and integral calculations
 - Restricted Hartree-Fock
 - Unrestricted Hartree-Fock
-- Cupled Cluster (CCD, CCSD)
+- Coupled Cluster (CCD, CCSD)
 - Electron density evaluation
 
 Some functions are implemented in python:
