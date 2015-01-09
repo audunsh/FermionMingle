@@ -41,7 +41,7 @@ public:
     vec epsilon;    //eigenvalues from current diagonalization
     mat P;          //Density matrix
     mat Cprime; //transformed Coefficient matric
-
+    int iterations; //number of iterations (counter)
 
 private:
     cube densityMap;
@@ -63,7 +63,7 @@ private:
 
 
     int nProtons;   //number of protons, can be removed
-    int iterations; //number of iterations (counter)
+
 
     double energyPrev = 10e10;
     double tolerance = 10e-10; //-10

@@ -80,6 +80,7 @@ double rhfsolve::solve(){
     //printMatrices();
     //createDensityMap();
     //return iterations;
+    //cout << iterations << endl;
     return energyCalc();
 }
 

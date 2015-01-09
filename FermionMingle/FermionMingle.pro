@@ -14,7 +14,8 @@ SOURCES += main.cpp \
     solvers/ccsolve.cpp \
     solvers/hfsolve.cpp \
     solvers/rhfsolve.cpp \
-    solvers/uhfsolve.cpp
+    solvers/uhfsolve.cpp \
+    basis/electrongas.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
@@ -30,7 +31,8 @@ HEADERS += \
     solvers/ccsolve.h \
     solvers/hfsolve.h \
     solvers/rhfsolve.h \
-    solvers/uhfsolve.h
+    solvers/uhfsolve.h \
+    basis/electrongas.h
 
 
 LIBS += -larmadillo -lblas -llapack

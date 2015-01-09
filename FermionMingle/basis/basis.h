@@ -28,6 +28,10 @@ public:
     void printAllContracted();
     void flip_index(); //Change indexing to match Thijssen
 
+    //Electron Gas Implementation
+    void setup_electrongas(int Lv, int NEv);
+    int L, NE;
+
     //implementing a more streamlined interface for dealing with the basis
     void add_state();
     void add_primitive_to_state(int Stateindex, Primitive P);

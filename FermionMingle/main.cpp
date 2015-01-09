@@ -64,19 +64,20 @@ int main(int argc, char* argv[]) {
     if(true){
         cout << "Performing RHF+CCSD on H2 using STO-6G set" << endl;
         vec3 corePos1 = {0,0,0};                            //setting up some position vectors for the cores
-        vec3 corePos2 = {0,0,1.4};
+        vec3 corePos2 = {0,0,2.287};
 
         fmingle myparty2;                                   //creating the system
         myparty2.printing = true;
-        myparty2.add_nucleus(corePos1, 1);                  //creating a nucleus with charge 1
-        myparty2.add_nucleus(corePos2, 1);                //creating a nucleus with charge 1
-        myparty2.fminglebasisbank.add_STO_6G_h(corePos1);  //creating an electrons positioned at core 1 using STO-6G basis set
-        myparty2.fminglebasisbank.add_STO_6G_h(corePos2); //creating an electrons positioned at core 2 using STO-6G basis set
-        myparty2.rhf_solve(2);                            //perform a unrestricted hartree fock procedure for 1 up electron, 2 down electrons
-        myparty2.ccsd_solve(2);
+        myparty2.add_nucleus(corePos1,8);                  //creating a nucleus with charge 1
+        //myparty2.add_nucleus(corePos2,8);                //creating a nucleus with charge 1
+        myparty2.fminglebasisbank.add_STO_3G_o(corePos1);  //creating an electrons positioned at core 1 using STO-6G basis set
+        //myparty2.fminglebasisbank.add_STO_3G_o(corePos2); //creating an electrons positioned at core 2 using STO-6G basis set
+        myparty2.rhf_solve(8);                            //perform a unrestricted hartree fock procedure for 1 up electron, 2 down electrons
+        myparty2.ccsd_solve(8);
 
         //cout << "Number of primitives:" << myparty2.fminglebasisbank.bs.nPrimitivesInState(0) << endl;
 
+        /*
         myparty2.reset();
         cout << endl << "Performing UHF on H2 using STO-6G set" << endl;
         //cout << "Number of primitives:" << myparty2.fminglebasisbank.bs.nPrimitivesInState(0) << endl;
@@ -89,10 +90,13 @@ int main(int argc, char* argv[]) {
         myparty2.uhf_solve(1,1);                            //perform a unrestricted hartree fock procedure for 1 up electron, 2 down electrons
         //myparty2.ccsd_solve(2);
 
+        */
+        cout << "Correlation energy:" << myparty2.correlation_energy << endl;
+        cout << "RHF Energy:" << myparty2.rhf_energy << endl;
 
     }
 
-    if(false){
+    if(true){
         double x0 = 0.1;
         double x1 = 6.0;
         int N = 50;
@@ -116,10 +120,15 @@ int main(int argc, char* argv[]) {
             myparty2.fminglebasisbank.add_STO_6G_h(corePos1);  //creating an electron positioned at core 1 using STO-6G basis set
             myparty2.fminglebasisbank.add_STO_6G_h(corePos2);  //creating an electron positioned at core 2 using STO-6G basis set
 
-            myparty2.rhf_solve(2);                            //perform a unrestricted hartree fock procedure for 1 up electron, 2 down electrons
+            myparty2.rhf_solve(2);                            //perform a restricted hartree fock procedure for 1 up electron, 2 down electrons
             myparty2.ccsd_solve(2);
 
+            //energyVsPosition(i,1) = myparty2.rhf_energy + myparty2.correlation_energy;
             energyVsPosition(i,1) = myparty2.rhf_energy + myparty2.correlation_energy;
+
+            //energyVsPosition(i,1) = myparty2.fminglesolver_cc.t2c(3,2)(1,0);
+
+            //cout << myparty2.fminglesolver_hf. << endl;
             if(i>1){
                 if(abs(energyVsPosition(i-1,1) - energyVsPosition(i,1))>1.0){
                     cout << "A convergence likely occured." << endl;
@@ -132,7 +141,7 @@ int main(int argc, char* argv[]) {
 
         }
         energyVsPosition.print();
-        energyVsPosition.save("STO6G_h2_RHF_CCSD_N40.txt", raw_ascii);
+        energyVsPosition.save("STO6G_h2_RHF_CCSD_N40_t1_.txt", raw_ascii);
     }
 
     return 0;

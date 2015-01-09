@@ -1,6 +1,7 @@
 #include "basis/basis.h"
 #include "basis/contracted.h"
 #include "basis/primitive.h"
+#include "basis/electrongas.h"
 #include <armadillo>
 #include "integrator/integrator.h"
 #include "integrator/boysfunction.h"
@@ -10,6 +11,12 @@ basis::basis(){
     set_size(3);
 }
 
+
+void basis::setup_electrongas(int Lv, int NEv){
+    L = Lv;
+    NE = NEv;
+    //Set up the interactions for an electron gas with NE electrons in a cube with volume L^3
+};
 
 void basis::set_orthonormal(){
     //sets the overlap matrix equal to the identity matrix

@@ -56,6 +56,8 @@ public:
 
     double correlation_energy;
 
+    field<mat> t2c; //t2 current
+    mat t1c; //t1 current
 private:
     field<mat> vmin; //The coupled minimized matrix elements
     field<mat> vminu; //The coupled minimized matrix elements Spin down for UHF
@@ -70,7 +72,7 @@ private:
     field<mat> t2;
 
     mat t1new;
-    mat t1c; //t1 current
+
     mat t1p; //t1 previous
 
 
@@ -106,7 +108,7 @@ private:
     field<mat> t2newQdp;
 
     field<mat> t20;
-    field<mat> t2c; //t2 current
+
     field<mat> t2p; //t2 previous
 
 
