@@ -5,6 +5,7 @@
 #include <armadillo>
 #include "basis/contracted.h"
 #include "basis/primitive.h"
+#include "basis/electrongas.h"
 #include "integrator/integrator.h"
 #include "integrator/boysfunction.h"
 
@@ -29,8 +30,10 @@ public:
     void flip_index(); //Change indexing to match Thijssen
 
     //Electron Gas Implementation
-    void setup_electrongas(int Lv, int NEv);
+    void setup_electrongas(int NEv, int Lv);
+    void init_electron_integrals();
     int L, NE;
+    electrongas gasbasis;
 
     //implementing a more streamlined interface for dealing with the basis
     void add_state();

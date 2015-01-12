@@ -62,6 +62,7 @@ double rhfsolve::solve(){
 
     setupF();
     //printMatrices();
+    cout << energyCalc() << endl;
     while(convergenceCriteria()){
         epsilon_prev = epsilon;
         energyPrev = energyCalc();

@@ -12,11 +12,32 @@ basis::basis(){
 }
 
 
-void basis::setup_electrongas(int Lv, int NEv){
+void basis::setup_electrongas(int NEv, int Lv){
     L = Lv;
     NE = NEv;
+    gasbasis.generate_state_list(NE, L);
+    set_size(gasbasis.n_basis_functions);
     //Set up the interactions for an electron gas with NE electrons in a cube with volume L^3
-};
+}
+
+void basis::init_electron_integrals(){
+    //Calculate all integrals for electron interactions (needed only for testing)
+    for(int p=0; p<Nstates; p++){
+        for(int q=0; q<Nstates; q++){
+
+            S(p,q) = 1*(p==q);
+            h(p,q) = gasbasis.f(p,q);
+            for(int r=0; r<Nstates; r++){
+                for(int s=0; s<Nstates; s++){
+                    v(p,q)(r,s) = gasbasis.v(p,r,q,s);
+                }
+            }
+        }
+        //cout << p << endl;
+    }
+    //v.print();
+}
+
 
 void basis::set_orthonormal(){
     //sets the overlap matrix equal to the identity matrix

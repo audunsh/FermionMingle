@@ -19,13 +19,18 @@ fmingle::fmingle()
 {
     //this class will be the main user interface for the solver
     //A typical runtime should only communicate with the respective solvers through this class
-    basis BS;
+    //basis BS;
     initialized = 0;
     printing = false;
     basisbank wrapped (BS);
     fminglebasisbank = wrapped;
     fminglebasisbank.bs.Nstates = 0;
     report = "";
+}
+
+void fmingle::add_electrongas(int NE, int LE){
+    //BS();
+    BS.setup_electrongas(NE, LE);
 }
 
 void fmingle::add_nucleus(vec3 corePos, int charge){
