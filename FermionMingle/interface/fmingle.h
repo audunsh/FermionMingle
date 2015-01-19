@@ -20,7 +20,7 @@ class fmingle
 {
 public:
     fmingle();
-    void add_electrongas(int NE, int LE);
+    void add_electrongas(int NE, double LE);
     void add_nucleus(vec3 corePos, int charge);
     void add_orbitals(vec3 fPos, string config);
     void rhf_solve(int nElectrons);

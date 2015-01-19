@@ -30,7 +30,7 @@ public:
     void flip_index(); //Change indexing to match Thijssen
 
     //Electron Gas Implementation
-    void setup_electrongas(int NEv, int Lv);
+    void setup_electrongas(int NEv, double Lv);
     void init_electron_integrals();
     int L, NE;
     electrongas gasbasis;

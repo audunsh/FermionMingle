@@ -12,7 +12,7 @@ basis::basis(){
 }
 
 
-void basis::setup_electrongas(int NEv, int Lv){
+void basis::setup_electrongas(int NEv, double Lv){
     L = Lv;
     NE = NEv;
     gasbasis.generate_state_list(NE, L);
@@ -29,7 +29,7 @@ void basis::init_electron_integrals(){
             h(p,q) = gasbasis.f(p,q);
             for(int r=0; r<Nstates; r++){
                 for(int s=0; s<Nstates; s++){
-                    v(p,q)(r,s) = gasbasis.v(p,r,q,s);
+                    v(p,q)(r,s) = gasbasis.v(p,q,r,s);
                 }
             }
         }

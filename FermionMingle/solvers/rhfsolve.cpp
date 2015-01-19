@@ -49,6 +49,7 @@ void rhfsolve::reset(basis BS, int N){
     epsilon_prev.zeros(nStates);  //eigenvalues from previous diagonalization
 
     setupCoupledMatrix();  //import particle-particle interaction integrals
+    coupledMatrix.print();
     setupP();              //set up initial density matrix
     s_diag.zeros(nStates);
 }

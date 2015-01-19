@@ -10,14 +10,15 @@ class electrongas
 {
 public:
     electrongas();
-    void generate_state_list(int Ne, int Le);
+    void generate_state_list(int Ne, double rs);
     double absdiff2(vec A, vec B);
     double v(int P, int Q, int R, int S);
     double f(int P, int Q);
     int kd_vec(rowvec A, rowvec B);
     int kd(int A, int B);
 
-    int L;
+    double L;
+    double r_s;
     int N;
     int n_basis_functions;
 

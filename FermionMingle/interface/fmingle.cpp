@@ -28,7 +28,7 @@ fmingle::fmingle()
     report = "";
 }
 
-void fmingle::add_electrongas(int NE, int LE){
+void fmingle::add_electrongas(int NE, double LE){
     //BS();
     BS.setup_electrongas(NE, LE);
 }

@@ -9,9 +9,12 @@ electrongas::electrongas()
 {
 }
 
-void electrongas::generate_state_list(int Ne, int Le){
+void electrongas::generate_state_list(int Ne, double rs){
     N = Ne;
-    L = Le;
+
+    //Volum = nokkuperte*4.d0*pi*r_s**3/3.d0
+    r_s = rs;
+    L = pow(N*4.0*pi*r_s*r_s*r_s/3.0, 1.0/3.0);
 
     prefactor1 = 4*pi/(L*L*L); //These are not necessarily correct
     prefactor2 = .5;

@@ -49,9 +49,18 @@ int main(int argc, char* argv[]) {
         fmingle myparty;
         myparty.add_electrongas(1,1);
         myparty.BS.init_electron_integrals();
-        myparty.BS.h.print();
-        myparty.printing = true;
-        myparty.rhf_solve(2);
+
+        //myparty.BS.h.print();
+        //myparty.BS.v.print();
+        //myparty.printing = true;
+        //myparty.rhf_solve(4);
+        //myparty.fminglesolver_hf.solve_rhf(2.0);
+        //myparty.fminglesolver_rhf.coupledMatrix.print();
+        //cout << myparty.fminglesolver_rhf.energyCalc()<< endl;
+
+        rhfsolve ecalc (myparty.BS, 14);
+        ecalc.coupledMatrix.print();
+        cout << 2*ecalc.energyCalc()/14.0 << endl; //in Rydbergs/electron
 
     }
 
