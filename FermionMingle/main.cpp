@@ -13,6 +13,7 @@
 #include "solvers/ccsolve.h"
 #include "basis/basisbank.h"
 #include "interface/fmingle.h"
+#include "interface/energyconvert.h"
 
 //double pi = 4*atan(1);
 
@@ -59,8 +60,18 @@ int main(int argc, char* argv[]) {
         //cout << myparty.fminglesolver_rhf.energyCalc()<< endl;
 
         rhfsolve ecalc (myparty.BS, 14);
-        ecalc.coupledMatrix.print();
-        cout << 2*ecalc.energyCalc()/14.0 << endl; //in Rydbergs/electron
+
+        //ecalc.coupledMatrix.print();
+
+        cout << "Size of nucleus charges:" << myparty.BS.nucleusCharges.size() << endl;
+
+        cout << "Calculating energy" << endl;
+        energyconvert energy(ecalc.energyCalc());
+
+
+        cout << "Resulting HF energy:" << energy.as("rydberg")/14.0 << endl; //in Rydbergs/electron
+        cout << "Compared to        :" << "1.93434 rydbergs per particle from G.Baardsen." << endl;
+        cout << "With a ratio of    :" << (energy.as("rydberg")/14.0)/1.93434 << endl;
 
     }
 

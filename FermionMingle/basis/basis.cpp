@@ -26,7 +26,7 @@ void basis::init_electron_integrals(){
         for(int q=0; q<Nstates; q++){
 
             S(p,q) = 1*(p==q);
-            h(p,q) = gasbasis.f(p,q);
+            h(p,q) = gasbasis.h(p,q);
             for(int r=0; r<Nstates; r++){
                 for(int s=0; s<Nstates; s++){
                     v(p,q)(r,s) = gasbasis.v(p,q,r,s);
@@ -35,6 +35,7 @@ void basis::init_electron_integrals(){
         }
         //cout << p << endl;
     }
+    //h.print();
     //v.print();
 }
 
@@ -855,13 +856,14 @@ double basis::nnInteraction(){
     double result = 0;
     vec3 Rnn;
     double r;
-    for(int i=0; i<nucleusCharges.size()-1; i++){
-        for(int j=i+1; j<nucleusCharges.size(); j++){
-            Rnn = nucleusPositions(i)-nucleusPositions(j);
-            r = sqrt(Rnn(0)*Rnn(0)+Rnn(1)*Rnn(1)+Rnn(2)*Rnn(2));
-            //cout << i << " " << j << ": " << r << endl;
-            result += nucleusCharges(i)*nucleusCharges(j)/r;
+    if(nucleusCharges.size() != 0){
+        for(int i=0; i<nucleusCharges.size()-1; i++){
+            for(int j=i+1; j<nucleusCharges.size(); j++){
+                Rnn = nucleusPositions(i)-nucleusPositions(j);
+                r = sqrt(Rnn(0)*Rnn(0)+Rnn(1)*Rnn(1)+Rnn(2)*Rnn(2));
+                result += nucleusCharges(i)*nucleusCharges(j)/r;
 
+            }
         }
     }
     return result;

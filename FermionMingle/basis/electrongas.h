@@ -14,10 +14,12 @@ public:
     double absdiff2(vec A, vec B);
     double v(int P, int Q, int R, int S);
     double f(int P, int Q);
+    double h(int P, int Q);
     int kd_vec(rowvec A, rowvec B);
     int kd(int A, int B);
 
     double L;
+    double L3; //L*L*L
     double r_s;
     int N;
     int n_basis_functions;

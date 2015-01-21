@@ -14,9 +14,11 @@ void electrongas::generate_state_list(int Ne, double rs){
 
     //Volum = nokkuperte*4.d0*pi*r_s**3/3.d0
     r_s = rs;
-    L = pow(N*4.0*pi*r_s*r_s*r_s/3.0, 1.0/3.0);
 
-    prefactor1 = 4*pi/(L*L*L); //These are not necessarily correct
+
+    //prefactor1 = 4*pi/(L*L*L); //These are not necessarily correct
+
+    prefactor1 = 3/(14.0*r_s*r_s*r_s);
     prefactor2 = .5;
 
     double Nmax = sqrt(N) + 1;
@@ -36,26 +38,29 @@ void electrongas::generate_state_list(int Ne, double rs){
         }
     }
     //cout << "Up to energy level " << N << " there will be " << nStates << " states." << endl;
-
+    prefactor1 = 3.0/(nStates*r_s*r_s*r_s);
+    L3 = nStates*4.0*pi*r_s*r_s*r_s/3.0;
+    L = pow(L3, 1.0/3.0);
     //Setting up all all states
     mat k_combinations = zeros(nStates, 5);
     sorted_energy.zeros(nStates, 4);
     int index_count = 0;
-
+    double e2;
 
     for(int x = -Nmax; x<Nmax+1; x++){
         for(int y = -Nmax; y<Nmax+1; y++){
             for(int z = -Nmax; z<Nmax+1; z++){
-                energy = x*x + y*y + z*z;
+                energy = (x*x + y*y + z*z);
+                e2 = energy*pi*pi/(2*L*L);
                 if(energy < N + 1){
-                    k_combinations(index_count, 0) = energy;
+                    k_combinations(index_count, 0) = e2; //energy*prefactor2*(53.63609*pi*pi/L3);
                     k_combinations(index_count, 1) = x;
                     k_combinations(index_count, 2) = y;
                     k_combinations(index_count, 3) = z;
                     k_combinations(index_count, 4) = 0;
                     index_count += 1;
 
-                    k_combinations(index_count, 0) = energy;
+                    k_combinations(index_count, 0) = e2; //energy*prefactor2*(53.63609*pi*pi/L3);
                     k_combinations(index_count, 1) = x;
                     k_combinations(index_count, 2) = y;
                     k_combinations(index_count, 3) = z;
@@ -76,9 +81,10 @@ void electrongas::generate_state_list(int Ne, double rs){
         for(int j = 0; j< 4; j++){
             sorted_energy(i,j) = k_combinations(sorted_vector(i), j+1);
         }
-        Energy(i) = k_combinations(sorted_vector(i));
+        Energy(i) = k_combinations(sorted_vector(i), 0);
     }
     //sorted_energy.print();
+    Energy.print();
 }
 
 double electrongas::absdiff2(vec A, vec B){
@@ -99,6 +105,10 @@ int electrongas::kd_vec(rowvec A, rowvec B){
         D*=(A(i)==B(i));
     }
     return D;
+}
+
+double electrongas::h(int P, int Q){
+    return Energy(P)*(P==Q);
 }
 
 double electrongas::v(int P, int Q, int R, int S){
@@ -142,11 +152,12 @@ double electrongas::v(int P, int Q, int R, int S){
         }
 
         value *= (term1 - term2);
-        return value;
+        return prefactor1*value;
     }
 }
 
 double electrongas::f(int P, int Q){
+    //Fock operator matrix elements
     double val = prefactor2;
     rowvec KP = sorted_energy.row(P);
     rowvec KQ = sorted_energy.row(Q);

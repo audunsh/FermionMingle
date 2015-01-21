@@ -15,6 +15,7 @@
 #include "solvers/ccsolve.h"
 #include "basis/basisbank.h"
 
+
 fmingle::fmingle()
 {
     //this class will be the main user interface for the solver
