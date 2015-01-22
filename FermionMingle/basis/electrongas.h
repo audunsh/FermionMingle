@@ -15,6 +15,7 @@ public:
     double v(int P, int Q, int R, int S);
     double f(int P, int Q);
     double h(int P, int Q);
+    double eref(int nParticles);
     int kd_vec(rowvec A, rowvec B);
     int kd(int A, int B);
 

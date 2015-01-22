@@ -51,7 +51,7 @@ void electrongas::generate_state_list(int Ne, double rs){
         for(int y = -Nmax; y<Nmax+1; y++){
             for(int z = -Nmax; z<Nmax+1; z++){
                 energy = (x*x + y*y + z*z);
-                e2 = energy*pi*pi/(2*L*L);
+                e2 = energy*(3.321*pi*pi)/(2*L*L);
                 if(energy < N + 1){
                     k_combinations(index_count, 0) = e2; //energy*prefactor2*(53.63609*pi*pi/L3);
                     k_combinations(index_count, 1) = x;
@@ -176,4 +176,16 @@ double electrongas::f(int P, int Q){
     }
     val += prefactor1*val2;
     return val;
+}
+
+double electrongas::eref(int nParticles){
+    //returns the reference energy in the current basis
+    double reference_energy = 0.0;
+    for(int i =0; i <nParticles; i++){
+        reference_energy += h(i,i);
+        for(int j=0; j<nParticles; j++){
+            reference_energy += .5*v(i,j, i,j);
+        }
+    }
+    return reference_energy;
 }

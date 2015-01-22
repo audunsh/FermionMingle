@@ -50,6 +50,8 @@ int main(int argc, char* argv[]) {
         fmingle myparty;
         myparty.add_electrongas(1,1);
         myparty.BS.init_electron_integrals();
+        energyconvert energy2(myparty.BS.gasbasis.eref(14));
+        cout << "Reference energy:" << energy2.as("rydberg")/14.0<< endl;
 
         //myparty.BS.h.print();
         //myparty.BS.v.print();
@@ -61,9 +63,6 @@ int main(int argc, char* argv[]) {
 
         rhfsolve ecalc (myparty.BS, 14);
 
-        //ecalc.coupledMatrix.print();
-
-        cout << "Size of nucleus charges:" << myparty.BS.nucleusCharges.size() << endl;
 
         cout << "Calculating energy" << endl;
         energyconvert energy(ecalc.energyCalc());
