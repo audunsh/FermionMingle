@@ -16,6 +16,7 @@ public:
     double f(int P, int Q);
     double h(int P, int Q);
     double eref(int nParticles);
+    double analytic_energy(int nParticles);
     int kd_vec(rowvec A, rowvec B);
     int kd(int A, int B);
 

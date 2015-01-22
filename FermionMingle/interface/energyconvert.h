@@ -10,8 +10,13 @@ class energyconvert
 public:
     energyconvert();
     energyconvert(double E0);
-    double as(string units);
     double E;
+    double hartree();
+    double angstrom();
+    double au();
+    double rydberg();
+    double joule();
+    double eV();
 };
 
 #endif // ENERGYCONVERT_H

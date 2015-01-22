@@ -51,7 +51,8 @@ int main(int argc, char* argv[]) {
         myparty.add_electrongas(1,1);
         myparty.BS.init_electron_integrals();
         energyconvert energy2(myparty.BS.gasbasis.eref(14));
-        cout << "Reference energy:" << energy2.as("rydberg")/14.0<< endl;
+        energyconvert energy_a(myparty.BS.gasbasis.analytic_energy(1));
+        //cout << "Reference energy:" << energy2.as("rydberg")/14.0<< endl;
 
         //myparty.BS.h.print();
         //myparty.BS.v.print();
@@ -61,16 +62,16 @@ int main(int argc, char* argv[]) {
         //myparty.fminglesolver_rhf.coupledMatrix.print();
         //cout << myparty.fminglesolver_rhf.energyCalc()<< endl;
 
-        rhfsolve ecalc (myparty.BS, 14);
+        //rhfsolve ecalc (myparty.BS, 14);
 
 
         cout << "Calculating energy" << endl;
-        energyconvert energy(ecalc.energyCalc());
+        //energyconvert energy(ecalc.energyCalc());
 
-
-        cout << "Resulting HF energy:" << energy.as("rydberg")/14.0 << endl; //in Rydbergs/electron
+        cout << "Analytic energy    :" << energy_a.rydberg() << endl;
+        cout << "Resulting HF energy:" << energy2.rydberg()/14.0 << endl; //in Rydbergs/electron
         cout << "Compared to        :" << "1.93434 rydbergs per particle from G.Baardsen." << endl;
-        cout << "With a ratio of    :" << (energy.as("rydberg")/14.0)/1.93434 << endl;
+        cout << "With a ratio of    :" << (energy2.rydberg()/14.0)/1.93434 << endl;
 
     }
 

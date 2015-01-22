@@ -38,6 +38,8 @@ void electrongas::generate_state_list(int Ne, double rs){
         }
     }
     //cout << "Up to energy level " << N << " there will be " << nStates << " states." << endl;
+
+
     prefactor1 = 3.0/(nStates*r_s*r_s*r_s);
     L3 = nStates*4.0*pi*r_s*r_s*r_s/3.0;
     L = pow(L3, 1.0/3.0);
@@ -51,7 +53,7 @@ void electrongas::generate_state_list(int Ne, double rs){
         for(int y = -Nmax; y<Nmax+1; y++){
             for(int z = -Nmax; z<Nmax+1; z++){
                 energy = (x*x + y*y + z*z);
-                e2 = energy*(3.321*pi*pi)/(2*L*L);
+                e2 = energy*(2*pi*pi)/(L*L*L);
                 if(energy < N + 1){
                     k_combinations(index_count, 0) = e2; //energy*prefactor2*(53.63609*pi*pi/L3);
                     k_combinations(index_count, 1) = x;
@@ -135,10 +137,13 @@ double electrongas::v(int P, int Q, int R, int S){
     ks << KS(0) << KS(1) << KS(2);
 
     value = kd_vec((kp+kq), (kr+ks));
+
+
     if(value ==0 ){
         return 0;
     }
     else{
+        //term1 = kd(spinP, spinQ)*kd(spinR,spinS);
         term1 = kd(spinP, spinR)*kd(spinQ,spinS);
         kd1 = kd_vec(kp, kr);
         if(kd1!= 1.0){
@@ -188,4 +193,9 @@ double electrongas::eref(int nParticles){
         }
     }
     return reference_energy;
+}
+
+double electrongas::analytic_energy(int nParticles){
+    //Returns the analytic energy
+    return .5*(2.21/(r_s * r_s) - 0.916/r_s)*nParticles;
 }
