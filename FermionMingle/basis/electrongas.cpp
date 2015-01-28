@@ -18,8 +18,8 @@ void electrongas::generate_state_list(int Ne, double rs){
 
     //prefactor1 = 4*pi/(L*L*L); //These are not necessarily correct
 
-    prefactor1 = 3/(14.0*r_s*r_s*r_s);
-    prefactor2 = .5;
+    //prefactor1 = 3/(14.0*r_s*r_s*r_s);
+    //prefactor2 = .5;
 
     double Nmax = sqrt(N) + 1;
     int energy = 0;
@@ -53,7 +53,7 @@ void electrongas::generate_state_list(int Ne, double rs){
         for(int y = -Nmax; y<Nmax+1; y++){
             for(int z = -Nmax; z<Nmax+1; z++){
                 energy = (x*x + y*y + z*z);
-                e2 = energy*(2*pi*pi)/(L*L*L);
+                e2 = 2*energy*(pi*pi)/(L*L);
                 if(energy < N + 1){
                     k_combinations(index_count, 0) = e2; //energy*prefactor2*(53.63609*pi*pi/L3);
                     k_combinations(index_count, 1) = x;
@@ -119,7 +119,6 @@ double electrongas::v(int P, int Q, int R, int S){
     rowvec KQ = sorted_energy.row(Q);
     rowvec KR = sorted_energy.row(R);
     rowvec KS = sorted_energy.row(S);
-
     //Two electron interaction
     double value;
     double term1= 0;
@@ -156,8 +155,8 @@ double electrongas::v(int P, int Q, int R, int S){
             term2 = term2 / absdiff2(ks, kp);
         }
 
-        value *= (term1 - term2);
-        return prefactor1*value;
+        //value *= (term1 - term2);
+        return prefactor1*(term1 - term2);
     }
 }
 
@@ -186,10 +185,12 @@ double electrongas::f(int P, int Q){
 double electrongas::eref(int nParticles){
     //returns the reference energy in the current basis
     double reference_energy = 0.0;
-    for(int i =0; i <nParticles; i++){
-        reference_energy += h(i,i);
+    for(int i =0; i <nParticles+1; i++){
+        reference_energy += 0*h(i,i);
         for(int j=0; j<nParticles; j++){
-            reference_energy += .5*v(i,j, i,j);
+            if(i!=j){
+                reference_energy += .5*v(i,j, i,j);
+            }
         }
     }
     return reference_energy;
